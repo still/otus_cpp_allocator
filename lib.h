@@ -84,7 +84,7 @@ public:
         Node*   node;
     };
 
-    List() = default;
+    List() : base(nullptr), head(nullptr) {}
     ~List() {
         auto node = base;
         while(node) {
