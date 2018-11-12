@@ -85,6 +85,23 @@ public:
     };
 
     List() : base(nullptr), head(nullptr) {}
+
+    // copy
+    List(const List& other) : List() {
+        for(const auto& i: other)
+            append(i);
+    }
+
+    // move
+    List(const List&& other)
+        : allocator(other.allocator)
+        , base(other.base)
+        , head(other.head)
+    {
+        other.base = nullptr;
+        other.head = nullptr;
+    }
+
     ~List() {
         auto node = base;
         while(node) {
@@ -103,7 +120,7 @@ public:
         return Iterator(nullptr);
     }
 
-    void append(const T& value) {
+    void append(const T&& value) {
         auto node = allocator.allocate(1);
         allocator.construct(node, value);
 
