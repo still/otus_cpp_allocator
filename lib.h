@@ -93,7 +93,7 @@ public:
     }
 
     // move
-    List(const List&& other)
+    List(List&& other)
         : allocator(other.allocator)
         , base(other.base)
         , head(other.head)
@@ -120,7 +120,8 @@ public:
         return Iterator(nullptr);
     }
 
-    void append(const T&& value) {
+    template<typename K>
+    void append(K&& value) {
         auto node = allocator.allocate(1);
         allocator.construct(node, value);
 
