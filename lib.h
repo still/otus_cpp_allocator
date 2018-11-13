@@ -120,10 +120,10 @@ public:
         return Iterator(nullptr);
     }
 
-    template<typename K>
-    void append(K&& value) {
+    template <typename...Args>
+    void append(Args&&... value) {
         auto node = allocator.allocate(1);
-        allocator.construct(node, value);
+        allocator.construct(node, forward<Args>(value)...);
 
         if (base == nullptr)
             base = head = node;
